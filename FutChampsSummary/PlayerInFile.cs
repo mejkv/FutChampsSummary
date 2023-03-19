@@ -9,12 +9,12 @@ namespace FutChampsSummary
 {
     internal class PlayerInFile: PlayerBase
     {
-        public override event ScoreAddedDelegate ScoreAdded;
+        public override event RatingAbove9Delegate RatingAbove9;
 
         private const string fileName = "scores.txt";
 
-        public PlayerInFile(string name, string surname)
-            : base(name, surname)
+        public PlayerInFile(string name, string rarity)
+            : base(name, rarity)
         {
         }
 
@@ -27,9 +27,9 @@ namespace FutChampsSummary
                     writer.WriteLine(score);
                 }
 
-                if (ScoreAdded != null)
+                if (score > 9)
                 {
-                    ScoreAdded(this, new EventArgs());
+                    RatingAbove9(this, new EventArgs());
                 }
             }
             else
@@ -56,23 +56,23 @@ namespace FutChampsSummary
             {
                 case 'A':
                 case 'a':
-                    this.AddScore(100);
+                    this.AddScore(10);
                     break;
                 case 'B':
                 case 'b':
-                    this.AddScore(80);
+                    this.AddScore(8);
                     break;
                 case 'C':
                 case 'c':
-                    this.AddScore(60);
+                    this.AddScore(6);
                     break;
                 case 'D':
                 case 'd':
-                    this.AddScore(40);
+                    this.AddScore(4);
                     break;
                 case 'E':
                 case 'e':
-                    this.AddScore(20);
+                    this.AddScore(2);
                     break;
                 default:
                     throw new Exception("Invalid score value");
@@ -91,19 +91,19 @@ namespace FutChampsSummary
                 {
                     case "A":
                     case "a":
-                        this.AddScore(100);
+                        this.AddScore(10);
                         break;
                     case "B":
                     case "b":
-                        this.AddScore(80);
+                        this.AddScore(8);
                         break;
                     case "C":
                     case "c":
-                        this.AddScore(60);
+                        this.AddScore(6);
                         break;
                     case "D":
                     case "d":
-                        this.AddScore(40);
+                        this.AddScore(4);
                         break;
                     case "E":
                     case "e":

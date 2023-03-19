@@ -49,7 +49,8 @@ static void AddRatingToMemory()
         if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(rarity))
         {
             var playerInMemory = new PlayerInMemory(name, rarity);
-            
+            AddRating(playerInMemory);
+        playerInMemory.GetStatistics();
         }
         else
         {
@@ -65,7 +66,9 @@ static void AddRatingToFile()
     string rarity = Console.ReadLine();
     if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(rarity))
     {
-        var playerInMemory = new PlayerInMemory(name, rarity);
+        var playerInFile = new PlayerInMemory(name, rarity);
+        AddRating(playerInFile);
+        playerInFile.GetStatistics();
     }
     else
     {
@@ -77,8 +80,7 @@ static void AddRating(IPlayer player)
 {
     while(true)
     {
-        Console.WriteLine($"Enter rating after match for {player.Name} in version {player.Rarity}\n" +
-            $"if you want to stop adding ratings type Q/q");
+        Console.WriteLine($"Enter rating after match for {player.Name} in version {player.Rarity}\n");
         var enter = Console.ReadLine();
 
         if( enter == "q" || enter == "Q" )
@@ -87,7 +89,7 @@ static void AddRating(IPlayer player)
         }
         try
         {
-
+            player.AddScore(enter);
         }
         catch (FormatException exception)
         {
@@ -103,7 +105,7 @@ static void AddRating(IPlayer player)
         }
         finally
         {
-            throw '';
+            Console.WriteLine("if you want to stop adding ratings type Q/q");
         }
     }
 }

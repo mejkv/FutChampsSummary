@@ -25,7 +25,7 @@ namespace FutChampsSummary
             {
                 this.score.Add(score);
 
-                if (score > 10 )
+                if (score > 9 )
                 {
                     RatingAbove9(this, new EventArgs());
                 }
@@ -54,23 +54,23 @@ namespace FutChampsSummary
             {
                 case 'A':
                 case 'a':
-                    this.AddScore(100);
+                    this.AddScore(10);
                     break;
                 case 'B':
                 case 'b':
-                    this.AddScore(80);
+                    this.AddScore(8);
                     break;
                 case 'C':
                 case 'c':
-                    this.AddScore(60);
+                    this.AddScore(6);
                     break;
                 case 'D':
                 case 'd':
-                    this.AddScore(40);
+                    this.AddScore(4);
                     break;
                 case 'E':
                 case 'e':
-                    this.AddScore(20);
+                    this.AddScore(2);
                     break;
                 default:
                     throw new Exception("Invalid score value");
@@ -89,23 +89,23 @@ namespace FutChampsSummary
                 {
                     case "A":
                     case "a":
-                        this.AddScore(100);
+                        this.AddScore(10);
                         break;
                     case "B":
                     case "b":
-                        this.AddScore(80);
+                        this.AddScore(8);
                         break;
                     case "C":
                     case "c":
-                        this.AddScore(60);
+                        this.AddScore(6);
                         break;
                     case "D":
                     case "d":
-                        this.AddScore(40);
+                        this.AddScore(4);
                         break;
                     case "E":
                     case "e":
-                        this.AddScore(20);
+                        this.AddScore(2);
                         break;
                     default:
                         throw new Exception("Invalid score value");
