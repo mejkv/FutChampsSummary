@@ -2,9 +2,9 @@
 {
     public abstract class PlayerBase : IPlayer
     {
-        public delegate void RatingAbove9Delegate(object sender, EventArgs args);
+        public delegate void RatingAddedDelegate(object sender, EventArgs args);
 
-        public abstract event RatingAbove9Delegate RatingAbove9;
+        public abstract event RatingAddedDelegate RatingAdded;
 
         public PlayerBase(string name, string rarity)
         {
@@ -36,7 +36,7 @@
             var stats = GetStatistics();
             if (stats.Count != 0)
             {
-                //ShowRatings()
+                ShowRatings();
                 Console.WriteLine("====================================");
                 Console.WriteLine($"{Name} {Rarity} rantings after FC: ");
                 Console.WriteLine($"Best rating: {stats.Max}");

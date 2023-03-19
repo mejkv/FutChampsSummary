@@ -8,9 +8,9 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace FutChampsSummary
 {
-    internal class PlayerInFile: PlayerBase
+    public class PlayerInFile: PlayerBase
     {
-        public override event RatingAbove9Delegate RatingAbove9;
+        public override event RatingAddedDelegate RatingAdded;
 
         private const string fileName = "scores.txt";
 
@@ -28,9 +28,9 @@ namespace FutChampsSummary
                     writer.WriteLine(score);
                 }
 
-                if (score > 9)
+                if (RatingAdded != null)
                 {
-                    RatingAbove9(this, new EventArgs());
+                    RatingAdded(this, new EventArgs());
                 }
             }
             else

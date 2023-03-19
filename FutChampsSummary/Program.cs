@@ -23,6 +23,7 @@ while (!exit)
             break;
 
         case "2":
+            AddRatingToFile();
             break;
             
         case "3":
@@ -35,27 +36,29 @@ while (!exit)
     }
 }
 
-void RatingAbove9(object sender, EventArgs args)
+void RatingAdded(object sender, EventArgs args)
 {
-    Console.WriteLine("Wow that was excellent game!");
+    Console.Write(" (Rating Added)");
 }
 
 static void AddRatingToMemory()
 {
-        Console.WriteLine("Please, insert player name or nickname: ");
-        string name = Console.ReadLine();
-        Console.WriteLine("Please, insert player rarity: ");
-        string rarity = Console.ReadLine();
-        if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(rarity))
-        {
-            var playerInMemory = new PlayerInMemory(name, rarity);
-            AddRating(playerInMemory);
-            playerInMemory.GetStatistics();
-        }
-        else
-        {
-            Console.WriteLine("Player name or rarity can't be empty.");
-        }
+     Console.WriteLine("Please, insert player name or nickname: ");
+     string name = Console.ReadLine();
+     Console.WriteLine("Please, insert player rarity: ");
+     string rarity = Console.ReadLine();
+
+     if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(rarity))
+     {
+         var playerInMemory = new PlayerInMemory(name, rarity);
+         AddRating(playerInMemory);
+         playerInMemory.GetStatistics();
+         playerInMemory.ShowStatistics();
+     }
+     else
+     {
+         Console.WriteLine("Player name or rarity can't be empty.");
+     }
 }
 
 static void AddRatingToFile()
@@ -64,11 +67,13 @@ static void AddRatingToFile()
     string name = Console.ReadLine();
     Console.WriteLine("Please, insert player rarity: ");
     string rarity = Console.ReadLine();
+
     if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(rarity))
     {
         var playerInFile = new PlayerInFile(name, rarity);
         AddRating(playerInFile);
         playerInFile.GetStatistics();
+        playerInFile.ShowStatistics();
     }
     else
     {

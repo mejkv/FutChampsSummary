@@ -2,7 +2,7 @@
 
 namespace FutChampsSummary
 {
-    internal interface IPlayer
+    public interface IPlayer
     {
         string Name { get; }
 
@@ -18,7 +18,7 @@ namespace FutChampsSummary
 
         void AddScore(string score);
 
-        event RatingAbove9Delegate RatingAbove9;
+        event RatingAddedDelegate RatingAdded;
 
         Statistics GetStatistics();
 

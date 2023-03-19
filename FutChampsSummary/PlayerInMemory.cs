@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FutChampsSummary
 {
-    internal class PlayerInMemory : PlayerBase
+    public class PlayerInMemory : PlayerBase
     {
         private List<float> score = new List<float>();
 
@@ -17,7 +17,7 @@ namespace FutChampsSummary
         { 
         }
 
-        public override event RatingAbove9Delegate RatingAbove9;
+        public override event RatingAddedDelegate RatingAdded;
 
         public override void AddScore(float score)
         {
@@ -25,9 +25,9 @@ namespace FutChampsSummary
             {
                 this.score.Add(score);
 
-                if (score > 9 )
+                if (RatingAdded != null)
                 {
-                    RatingAbove9(this, new EventArgs());
+                    RatingAdded(this, new EventArgs());
                 }
             }
             else
@@ -44,7 +44,7 @@ namespace FutChampsSummary
 
         public override void AddScore(int score)
         {
-            var result = (float)score;
+            var result = score;
             this.AddScore(result);
         }
 
