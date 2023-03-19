@@ -21,7 +21,7 @@ namespace FutChampsSummary
 
         public override void AddScore(float score)
         {
-            if (score >= 0 && score <= 100)
+            if (score >= 0 && score <= 10)
             {
                 using (var writer = File.AppendText(fileName))
                 {
@@ -144,7 +144,6 @@ namespace FutChampsSummary
 
         public override void ShowRatings()
         {
-            int i = 0;
             StringBuilder sb = new StringBuilder($"{this.Name} {this.Rarity} ratings are: ");
 
             using (var reader = File.OpenText(fileName))

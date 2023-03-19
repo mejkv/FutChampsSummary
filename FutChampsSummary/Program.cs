@@ -1,6 +1,10 @@
 ﻿using FutChampsSummary;
 using System.Runtime.CompilerServices;
 
+void RatingAdded(object sender, EventArgs args)
+{
+    Console.Write(" (Rating Added)");
+}
 
 Console.WriteLine("Hello to the FUT Champions Player Rating console app.");
 
@@ -28,17 +32,13 @@ while (!exit)
             
         case "3":
             exit = true;
+            Console.WriteLine("\nSee you next time!\n");
             break;
 
         default:
             Console.WriteLine("Invalid operation\n");
             break;
     }
-}
-
-void RatingAdded(object sender, EventArgs args)
-{
-    Console.Write(" (Rating Added)");
 }
 
 static void AddRatingToMemory()
@@ -50,10 +50,10 @@ static void AddRatingToMemory()
 
      if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(rarity))
      {
-         var playerInMemory = new PlayerInMemory(name, rarity);
-         AddRating(playerInMemory);
-         playerInMemory.GetStatistics();
-         playerInMemory.ShowStatistics();
+         var player = new PlayerInMemory(name, rarity);
+         AddRating(player);
+         player.GetStatistics();
+         player.ShowStatistics();
      }
      else
      {
@@ -70,10 +70,10 @@ static void AddRatingToFile()
 
     if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(rarity))
     {
-        var playerInFile = new PlayerInFile(name, rarity);
-        AddRating(playerInFile);
-        playerInFile.GetStatistics();
-        playerInFile.ShowStatistics();
+        var player = new PlayerInFile(name, rarity);
+        AddRating(player);
+        player.GetStatistics();
+        player.ShowStatistics();
     }
     else
     {
@@ -81,7 +81,7 @@ static void AddRatingToFile()
     }
 }
 
-static void AddRating(IPlayer player)
+static void AddRating(PlayerBase player)
 {
     while(true)
     {
@@ -98,15 +98,15 @@ static void AddRating(IPlayer player)
         }
         catch (FormatException exception)
         {
-            throw new Exception(exception.Message);
+            Console.WriteLine($"Exception catched: {exception.Message}");
         }
         catch(ArgumentOutOfRangeException exception)
         {
-            throw new Exception(exception.Message);
+            Console.WriteLine($"Exception catched: {exception.Message}");
         }
         catch(NullReferenceException exception)
         {
-            throw new Exception(exception.Message);
+            Console.WriteLine($"Exception catched: {exception.Message}");
         }
         finally
         {

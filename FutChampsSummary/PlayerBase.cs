@@ -14,12 +14,9 @@
         public string Name { get; private set; }
         public string Rarity { get; private set; }
 
-        public int overall => throw new NotImplementedException();
-
         public abstract void AddScore(float score);
 
         public abstract void AddScore(double score);
-
 
         public abstract void AddScore(int score);
 
