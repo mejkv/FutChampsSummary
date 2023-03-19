@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static FutChampsSummary.PlayerBase;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace FutChampsSummary
 {
@@ -139,6 +140,22 @@ namespace FutChampsSummary
                 }
             }
             return scores;
+        }
+
+        public override void ShowRatings()
+        {
+            int i = 0;
+            StringBuilder sb = new StringBuilder($"{this.Name} {this.Rarity} ratings are: ");
+
+            using (var reader = File.OpenText(fileName))
+            {
+                var line = reader.ReadLine();
+                while (line != null)
+                {
+                    sb.Append("{0}" + line);
+                    line = reader.ReadLine();
+                }
+            }
         }
 
         private Statistics GetStatisticsFromFile(List<float> scores)

@@ -124,5 +124,24 @@ namespace FutChampsSummary
 
             return statistics;
         }
+
+        public override void ShowRatings()
+        {
+            int i = 0;
+            StringBuilder sb = new StringBuilder($"{this.Name} {this.Rarity} ratings are: ");
+            do
+            {
+                if (i == score.Count - 1)
+                {
+                    sb.Append("{0}" + score[i]);
+                }
+                else
+                {
+                    sb.Append("{0} / " + score[i]);
+                }
+                i++;
+            }
+            while (i < score.Count);
+        }
     }
 }

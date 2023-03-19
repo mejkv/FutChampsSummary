@@ -27,6 +27,29 @@
 
         public abstract void AddScore(string score);
 
+        public abstract void ShowRatings();
+
         public abstract Statistics GetStatistics();
+
+        public void ShowStatistics()
+        {
+            var stats = GetStatistics();
+            if (stats.Count != 0)
+            {
+                //ShowRatings()
+                Console.WriteLine("====================================");
+                Console.WriteLine($"{Name} {Rarity} rantings after FC: ");
+                Console.WriteLine($"Best rating: {stats.Max}");
+                Console.WriteLine($"Worst rating: {stats.Min}");
+                Console.WriteLine($"Average rating: {stats.Average}");
+                Console.WriteLine($"Average letter rating: {stats.AverageLetter}");
+                Console.WriteLine($"Count of ratings: {stats.Count}");
+                Console.WriteLine("====================================");
+            }
+            else
+            {
+                Console.WriteLine($"{Name} {Rarity} don't have any ratings");
+            }
+        }
     }
 }

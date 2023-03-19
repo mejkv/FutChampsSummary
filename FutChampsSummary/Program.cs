@@ -50,7 +50,7 @@ static void AddRatingToMemory()
         {
             var playerInMemory = new PlayerInMemory(name, rarity);
             AddRating(playerInMemory);
-        playerInMemory.GetStatistics();
+            playerInMemory.GetStatistics();
         }
         else
         {
@@ -66,7 +66,7 @@ static void AddRatingToFile()
     string rarity = Console.ReadLine();
     if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(rarity))
     {
-        var playerInFile = new PlayerInMemory(name, rarity);
+        var playerInFile = new PlayerInFile(name, rarity);
         AddRating(playerInFile);
         playerInFile.GetStatistics();
     }
