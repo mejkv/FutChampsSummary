@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 using System.Text;
-using System.Threading.Tasks;
 using static FutChampsSummary.PlayerBase;
 using static System.Formats.Asn1.AsnWriter;
 
@@ -13,24 +10,26 @@ namespace FutChampsSummary
         public override event RatingAddedDelegate RatingAdded;
 
         private const string fileName = "scores.txt";
+        private string FileName; 
 
         public PlayerInFile(string name, string rarity)
             : base(name, rarity)
         {
+            FileName = $"{name}_{rarity}_{fileName}";
         }
 
         public override void AddScore(float score)
         {
             if (score >= 0 && score <= 10)
             {
-                using (var writer = File.AppendText(fileName))
+                using (var writer = File.AppendText(FileName))
                 {
                     writer.WriteLine(score);
-                }
 
-                if (RatingAdded != null)
-                {
-                    RatingAdded(this, new EventArgs());
+                    if (RatingAdded != null)
+                    {
+                        RatingAdded(this, new EventArgs());
+                    }
                 }
             }
             else
@@ -38,97 +37,21 @@ namespace FutChampsSummary
                 throw new Exception("Invalid score value");
             }
         }
-
-        public override void AddScore(double score)
-        {
-            var result = (float)score;
-            this.AddScore(result);
-        }
-
-        public override void AddScore(int score)
-        {
-            float result = score;
-            this.AddScore(result);
-        }
-
-        public override void AddScore(char score)
-        {
-            switch (score)
-            {
-                case 'A':
-                case 'a':
-                    this.AddScore(10);
-                    break;
-                case 'B':
-                case 'b':
-                    this.AddScore(8);
-                    break;
-                case 'C':
-                case 'c':
-                    this.AddScore(6);
-                    break;
-                case 'D':
-                case 'd':
-                    this.AddScore(4);
-                    break;
-                case 'E':
-                case 'e':
-                    this.AddScore(2);
-                    break;
-                default:
-                    throw new Exception("Invalid score value");
-            }
-        }
-
-        public override void AddScore(string score)
-        {
-            if (float.TryParse(score, out float result))
-            {
-                this.AddScore(result);
-            }
-            else
-            {
-                switch (score)
-                {
-                    case "A":
-                    case "a":
-                        this.AddScore(10);
-                        break;
-                    case "B":
-                    case "b":
-                        this.AddScore(8);
-                        break;
-                    case "C":
-                    case "c":
-                        this.AddScore(6);
-                        break;
-                    case "D":
-                    case "d":
-                        this.AddScore(4);
-                        break;
-                    case "E":
-                    case "e":
-                        this.AddScore(20);
-                        break;
-                    default:
-                        throw new Exception("Invalid score value");
-                }
-            }
-        }
+       
 
         public override Statistics GetStatistics()
         {
-            var result = this.StatisticsFromFile();
+            var result = this.GetScoresFromFile();
             var finalResult = this.GetStatisticsFromFile(result);
             return finalResult;
         }
 
-        private List<float> StatisticsFromFile()
+        private List<float> GetScoresFromFile()
         {
             var scores = new List<float>();
-            if (File.Exists(fileName))
+            if (File.Exists(FileName))
             {
-                using (var reader = File.OpenText(fileName))
+                using (var reader = File.OpenText(FileName))
                 {
                     var line = reader.ReadLine();
                     while (line != null)
@@ -146,7 +69,7 @@ namespace FutChampsSummary
         {
             StringBuilder sb = new StringBuilder($"{this.Name} {this.Rarity} ratings are: ");
 
-            using (var reader = File.OpenText(fileName))
+            using (var reader = File.OpenText(FileName))
             {
                 var line = reader.ReadLine();
                 while (line != null)

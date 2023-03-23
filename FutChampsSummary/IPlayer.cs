@@ -21,6 +21,5 @@ namespace FutChampsSummary
         event RatingAddedDelegate RatingAdded;
 
         Statistics GetStatistics();
-
     }
 }

@@ -10,14 +10,14 @@ namespace FutChampsSummary
 {
     public class PlayerInMemory : PlayerBase
     {
+        public override event RatingAddedDelegate RatingAdded;
+
         private List<float> score = new List<float>();
 
         public PlayerInMemory(string name, string rarity)
             :base(name, rarity)
         { 
         }
-
-        public override event RatingAddedDelegate RatingAdded;
 
         public override void AddScore(float score)
         {
@@ -33,83 +33,6 @@ namespace FutChampsSummary
             else
             {
                 throw new Exception("Invalid score value");
-            }
-        }
-
-        public override void AddScore(double score)
-        {
-            var result = (float)score;
-            this.AddScore(result);
-        }
-
-        public override void AddScore(int score)
-        {
-            var result = score;
-            this.AddScore(result);
-        }
-
-        public override void AddScore(char score)
-        {
-            switch (score)
-            {
-                case 'A':
-                case 'a':
-                    this.AddScore(10);
-                    break;
-                case 'B':
-                case 'b':
-                    this.AddScore(8);
-                    break;
-                case 'C':
-                case 'c':
-                    this.AddScore(6);
-                    break;
-                case 'D':
-                case 'd':
-                    this.AddScore(4);
-                    break;
-                case 'E':
-                case 'e':
-                    this.AddScore(2);
-                    break;
-                default:
-                    throw new Exception("Invalid score value");
-            }
-        }
-
-        public override void AddScore(string score)
-        {
-            if (float.TryParse(score, out float result))
-            {
-                this.AddScore(result);
-            }
-            else
-            {
-                switch (score)
-                {
-                    case "A":
-                    case "a":
-                        this.AddScore(10);
-                        break;
-                    case "B":
-                    case "b":
-                        this.AddScore(8);
-                        break;
-                    case "C":
-                    case "c":
-                        this.AddScore(6);
-                        break;
-                    case "D":
-                    case "d":
-                        this.AddScore(4);
-                        break;
-                    case "E":
-                    case "e":
-                        this.AddScore(2);
-                        break;
-                    default:
-                        throw new Exception("Invalid score value");
-                }
             }
         }
 

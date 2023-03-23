@@ -1,14 +1,15 @@
-﻿using FutChampsSummary;
+﻿using System;
+using FutChampsSummary;
 using System.Runtime.CompilerServices;
 
-void RatingAdded(object sender, EventArgs args)
+static void PlayerRatingAdded(object sender, EventArgs args)
 {
-    Console.Write(" (Rating Added)");
+    Console.WriteLine("(Rating Added) \n");
 }
 
 Console.WriteLine("Hello to the FUT Champions Player Rating console app.");
 
-bool exit  = false;
+bool exit = false;
 
 while (!exit)
 {
@@ -17,10 +18,10 @@ while (!exit)
         "2. Add player's rating to the txt file and show statistics\n" +
         "3. Exit\n");
 
-    Console.WriteLine("(Press key 1, 2 or 3");
+    Console.WriteLine("(Press key 1, 2 or 3)");
     var input = Console.ReadLine();
 
-    switch(input)
+    switch (input)
     {
         case "1":
             AddRatingToMemory();
@@ -29,7 +30,7 @@ while (!exit)
         case "2":
             AddRatingToFile();
             break;
-            
+
         case "3":
             exit = true;
             Console.WriteLine("\nSee you next time!\n");
@@ -43,68 +44,63 @@ while (!exit)
 
 static void AddRatingToMemory()
 {
-     Console.WriteLine("Please, insert player name or nickname: ");
-     string name = Console.ReadLine();
-     Console.WriteLine("Please, insert player rarity: ");
-     string rarity = Console.ReadLine();
-
-     if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(rarity))
-     {
-         var player = new PlayerInMemory(name, rarity);
-         AddRating(player);
-         player.GetStatistics();
-         player.ShowStatistics();
-     }
-     else
-     {
-         Console.WriteLine("Player name or rarity can't be empty.");
-     }
-}
-
-static void AddRatingToFile()
-{
-    Console.WriteLine("Please, insert player name or nickname: ");
+    Console.WriteLine("\nPlease, insert player name or nickname: ");
     string name = Console.ReadLine();
-    Console.WriteLine("Please, insert player rarity: ");
+    Console.WriteLine("\nPlease, insert player rarity: ");
     string rarity = Console.ReadLine();
 
     if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(rarity))
     {
-        var player = new PlayerInFile(name, rarity);
+        var player = new PlayerInMemory(name, rarity);
+        player.RatingAdded += PlayerRatingAdded;
         AddRating(player);
         player.GetStatistics();
         player.ShowStatistics();
     }
     else
     {
-        Console.WriteLine("Player name or rarity can't be empty.");
+        Console.WriteLine("Player name and rarity can't be empty.");
     }
 }
 
-static void AddRating(PlayerBase player)
+static void AddRatingToFile()
 {
-    while(true)
+    Console.WriteLine("\nPlease, insert player name or nickname: ");
+    string name = Console.ReadLine();
+    Console.WriteLine("\nPlease, insert player rarity: ");
+    string rarity = Console.ReadLine();
+
+    if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(rarity))
     {
-        Console.WriteLine($"Enter rating after match for {player.Name} in version {player.Rarity}\n");
+        var player = new PlayerInFile(name, rarity);
+        player.RatingAdded += PlayerRatingAdded;
+        AddRating(player);
+        player.GetStatistics();
+        player.ShowStatistics();
+    }
+    else
+    {
+        Console.WriteLine("Player name and rarity can't be empty.\n");
+    }
+}
+
+static void AddRating(IPlayer player)
+{
+    while (true)
+    {
+        Console.WriteLine($"\nEnter rating after match for {player.Name} in version {player.Rarity}");
         var enter = Console.ReadLine();
 
-        if( enter == "q" || enter == "Q" )
+        if (enter == "q" || enter == "Q")
         {
             break;
         }
         try
         {
             player.AddScore(enter);
+
         }
-        catch (FormatException exception)
-        {
-            Console.WriteLine($"Exception catched: {exception.Message}");
-        }
-        catch(ArgumentOutOfRangeException exception)
-        {
-            Console.WriteLine($"Exception catched: {exception.Message}");
-        }
-        catch(NullReferenceException exception)
+        catch (Exception exception)
         {
             Console.WriteLine($"Exception catched: {exception.Message}");
         }

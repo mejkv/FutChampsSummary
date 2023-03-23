@@ -1,4 +1,6 @@
-﻿namespace FutChampsSummary
+﻿using System.Numerics;
+
+namespace FutChampsSummary
 {
     public abstract class PlayerBase : IPlayer
     {
@@ -16,13 +18,62 @@
 
         public abstract void AddScore(float score);
 
-        public abstract void AddScore(double score);
+        public void AddScore(double score)
+        {
+            var result = (float)score;
+            this.AddScore(result);
+        }
 
-        public abstract void AddScore(int score);
+        public void AddScore(int score)
+        {
+            float result = score;
+            this.AddScore(result);
+        }
 
-        public abstract void AddScore(char score);
+        public void AddScore(char score)
+        {
+            switch (score)
+            {
+                case 'A':
+                case 'a':
+                    this.AddScore(10);
+                    break;
+                case 'B':
+                case 'b':
+                    this.AddScore(8);
+                    break;
+                case 'C':
+                case 'c':
+                    this.AddScore(6);
+                    break;
+                case 'D':
+                case 'd':
+                    this.AddScore(4);
+                    break;
+                case 'E':
+                case 'e':
+                    this.AddScore(2);
+                    break;
+                default:
+                    throw new Exception("Invalid score value");
+            }
+        }
 
-        public abstract void AddScore(string score);
+        public void AddScore(string score)
+        {
+            if (float.TryParse(score, out float result))
+            {
+                this.AddScore(result);
+            }
+            else if (char.TryParse(score, out char resultChar))
+            {
+                AddScore(resultChar);
+            }
+            else
+            {
+                throw new Exception("Invalid score value");
+            }
+        }
 
         public abstract void ShowRatings();
 
