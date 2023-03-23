@@ -34,7 +34,7 @@ namespace FutChampsSummary
             }
             else
             {
-                throw new Exception("Invalid score value");
+                throw new ArgumentException("Invalid score value, only scores from 0 to 10 or from F to A are allowed");
             }
         }
        

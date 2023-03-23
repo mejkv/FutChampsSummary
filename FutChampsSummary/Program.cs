@@ -100,7 +100,15 @@ static void AddRating(IPlayer player)
             player.AddScore(enter);
 
         }
-        catch (Exception exception)
+        catch (ArgumentException exception)
+        {
+            Console.WriteLine($"Exception catched: {exception.Message}");
+        }
+        catch (FormatException exception)
+        {
+            Console.WriteLine($"Exception catched: {exception.Message}");
+        }
+        catch (NullReferenceException exception)
         {
             Console.WriteLine($"Exception catched: {exception.Message}");
         }
